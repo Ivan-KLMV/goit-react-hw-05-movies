@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 export const Reviews = () => {
   // 634649
   const [reviews, setReviews] = useState([]);
-  const { id } = useParams;
+  const { id } = useParams();
+  console.log(id);
   useEffect(() => {
     const options = {
       method: 'GET',
