@@ -5,7 +5,7 @@ export const Reviews = () => {
   // 634649
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -34,13 +34,8 @@ export const Reviews = () => {
       .catch(err => console.error('this is error', err));
   }, [id]);
 
-  console.log(reviews);
-  return reviews.length === 0 ? (
-    <div>
-      <p>We don't have any reviews for this movie.</p>
-      <div></div>
-    </div>
-  ) : (
+  //   console.log(reviews);
+  return (
     <div>
       <ul>
         {reviews.map(review => (
