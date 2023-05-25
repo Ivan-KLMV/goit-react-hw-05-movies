@@ -23,7 +23,7 @@ export const Home = () => {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setMovies(response.results);
         setIsLoading(false);
       })
