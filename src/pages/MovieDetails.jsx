@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, Outlet } from 'react-router-dom';
+import { Link, useParams, Outlet, useNavigate } from 'react-router-dom';
 
 export const MovieDetails = () => {
+  const navigate = useNavigate();
   const URL = 'https://image.tmdb.org/t/p/w500';
   const [movieInfo, setMovieInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -29,14 +30,18 @@ export const MovieDetails = () => {
   // console.log(movieInfo);
   // console.log(Boolean());
 
+  const backHandler = () => {
+    navigate('/');
+  };
+
   return isLoading ? (
     <>Loading...</>
   ) : (
     <div>
+      <button type="button" onClick={backHandler}>
+        back
+      </button>
       <div style={{ display: 'flex' }}>
-        {/* <div
-          
-        ></div> */}
         <img
           src={`${URL}${movieInfo.poster_path}`}
           alt=""
