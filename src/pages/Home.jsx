@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { MoviesList } from 'components/MoviesList';
+import { useLocation } from 'react-router-dom';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -8,6 +9,7 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const showButton = totalPages > 1 && page !== totalPages;
+  const location = useLocation();
 
   useEffect(() => {
     const options = {
@@ -37,7 +39,7 @@ export const Home = () => {
     <>Loading...</>
   ) : (
     <>
-      <MoviesList movies={movies} />
+      <MoviesList movies={movies} path={location} />
       {showButton && (
         <button
           type="button"
