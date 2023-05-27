@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { MoviesList } from 'components/MoviesList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useLocation } from 'react-router-dom';
+import { ContainerStyled } from 'components/Container.styled';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const showButton = totalPages > 1 && page !== totalPages;
+  const [page] = useState(1);
+  // const [totalPages, setTotalPages] = useState(0);
+  // const showButton = totalPages > 1 && page !== totalPages;
   const location = useLocation();
 
   useEffect(() => {
@@ -29,27 +30,32 @@ export const Home = () => {
       .then(response => {
         // console.log(response);
         setMovies(response.results);
-        setTotalPages(response.total_pages);
+        // setTotalPages(response.total_pages);
         setIsLoading(false);
       })
       .catch(err => console.error(err));
   }, [page]);
 
-  return isLoading ? (
-    <>Loading...</>
-  ) : (
-    <>
-      <MoviesList movies={movies} path={location} />
-      {showButton && (
-        <button
-          type="button"
-          onClick={() => {
-            setPage(prev => prev + 1);
-          }}
-        >
-          next
-        </button>
+  return (
+    <ContainerStyled>
+      <h1>Trending today</h1>
+      {isLoading ? (
+        <>Loading...</>
+      ) : (
+        <>
+          <MoviesList movies={movies} path={location} />
+          {/* {showButton && (
+            <button
+              type="button"
+              onClick={() => {
+                setPage(prev => prev + 1);
+              }}
+            >
+              next
+            </button>
+          )} */}
+        </>
       )}
-    </>
+    </ContainerStyled>
   );
 };
