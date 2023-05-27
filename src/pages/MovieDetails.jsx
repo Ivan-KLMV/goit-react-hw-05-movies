@@ -14,7 +14,9 @@ export const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const location = useLocation();
-  // console.log(location);
+  const backwardPath = location.state?.from ?? '/';
+
+  // console.log('backwardPath', backwardPath);
 
   useEffect(() => {
     const options = {
@@ -39,7 +41,7 @@ export const MovieDetails = () => {
   // console.log(Boolean());
 
   const backHandler = () => {
-    navigate(location.state.from);
+    navigate(backwardPath);
   };
 
   return isLoading ? (
