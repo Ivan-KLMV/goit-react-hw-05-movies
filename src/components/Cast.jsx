@@ -31,17 +31,40 @@ export const Cast = () => {
 
   //   console.log(cast);
   return (
-    <ul>
+    <ul style={{ listStyle: 'none' }}>
       {cast.slice(0, 20).map(actor => (
         <li key={actor.id}>
-          {/* <div
-            style={{ width: '160px', height: '240px', background: 'lightgrey' }}
-          ></div> */}
-          <img
-            src={`${URL}${actor.profile_path}`}
-            alt=""
-            style={{ width: '160px', height: 'auto', background: 'lightgrey' }}
-          />
+          {actor.profile_path ? (
+            <img
+              src={`${URL}${actor.profile_path}`}
+              alt=""
+              style={{
+                width: '160px',
+                height: 'auto',
+                background: 'lightgrey',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                width: '160px',
+                height: '240px',
+                background: 'lightgrey',
+              }}
+            >
+              <p
+                style={{
+                  margin: 'auto',
+                  color: 'whitesmoke',
+                  fontWeight: 600,
+                  fontSize: '30px',
+                }}
+              >
+                no photo
+              </p>
+            </div>
+          )}
           <p>{actor.name}</p>
           <p>charcter: {actor.character}</p>
         </li>
