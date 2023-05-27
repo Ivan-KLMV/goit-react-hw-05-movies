@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, Outlet, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  useParams,
+  Outlet,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 
 export const MovieDetails = () => {
   const navigate = useNavigate();
@@ -7,6 +13,8 @@ export const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
+  const location = useLocation();
+  // console.log(location);
 
   useEffect(() => {
     const options = {
@@ -31,7 +39,7 @@ export const MovieDetails = () => {
   // console.log(Boolean());
 
   const backHandler = () => {
-    navigate('/');
+    navigate(location.state.from);
   };
 
   return isLoading ? (
