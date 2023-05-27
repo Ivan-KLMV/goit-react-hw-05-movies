@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import { MoviesList } from 'components/MoviesList';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
   const [input, setInput] = useState('');
-  const [searchValue, setSearchValue] = useState('');
+  // const [searchValue, setSearchValue] = useState('');
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const location = useLocation();
+  const [searchQuery, setSearchQuery] = useSearchParams();
   const showButton = totalPages > 1 && page !== totalPages;
+  // console.log('Movies', location.pathname);
 
   useEffect(() => {
     const options = {
@@ -20,13 +24,15 @@ export const Movies = () => {
       },
     };
 
-    if (searchValue.trim() === '') {
+    if (!searchQuery.get('query')) {
       return;
     }
 
     setIsLoading(true);
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${searchValue}&include_adult=false&language=en-US&page=${page}`,
+      `https://api.themoviedb.org/3/search/movie?query=${searchQuery.get(
+        'query'
+      )}&include_adult=false&language=en-US&page=${page}`,
       options
     )
       .then(response => response.json())
@@ -37,7 +43,7 @@ export const Movies = () => {
         setIsLoading(false);
       })
       .catch(err => console.error(err));
-  }, [page, searchValue]);
+  }, [page, searchQuery]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -46,7 +52,8 @@ export const Movies = () => {
       alert('Enter a request');
       return;
     }
-    setSearchValue(input);
+    setSearchQuery({ query: input });
+    // setSearchValue(input);
     setPage(1);
   };
 
@@ -78,7 +85,7 @@ export const Movies = () => {
         <>Loading...</>
       ) : (
         <>
-          <MoviesList movies={movies} />
+          <MoviesList movies={movies} path={location} />
           {showButton && (
             <button
               type="button"
