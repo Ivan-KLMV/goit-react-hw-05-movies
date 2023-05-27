@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { MoviesList } from 'components/MoviesList';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const showButton = totalPages > 1 && page !== totalPages;
 
   useEffect(() => {
     const options = {
@@ -25,6 +27,7 @@ export const Home = () => {
       .then(response => {
         // console.log(response);
         setMovies(response.results);
+        setTotalPages(response.total_pages);
         setIsLoading(false);
       })
       .catch(err => console.error(err));
@@ -33,22 +36,18 @@ export const Home = () => {
   return isLoading ? (
     <>Loading...</>
   ) : (
-    <div>
-      <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.original_title}</Link>
-          </li>
-        ))}
-      </ul>
-      <button
-        type="button"
-        onClick={() => {
-          setPage(prev => prev + 1);
-        }}
-      >
-        next
-      </button>
-    </div>
+    <>
+      <MoviesList movies={movies} />
+      {showButton && (
+        <button
+          type="button"
+          onClick={() => {
+            setPage(prev => prev + 1);
+          }}
+        >
+          next
+        </button>
+      )}
+    </>
   );
 };
