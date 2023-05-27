@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MoviesList } from 'components/MoviesList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { ContainerStyled } from 'components/Container.styled';
 
 export const Movies = () => {
   const [input, setInput] = useState('');
@@ -8,10 +9,10 @@ export const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  // const [totalPages, setTotalPages] = useState(0);
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useSearchParams();
-  const showButton = totalPages > 1 && page !== totalPages;
+  // const showButton = totalPages > 1 && page !== totalPages;
   // console.log('Movies', location.pathname);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const Movies = () => {
       .then(response => {
         // console.log(response);
         setMovies(response.results);
-        setTotalPages(response.total_pages);
+        // setTotalPages(response.total_pages);
         setIsLoading(false);
       })
       .catch(err => console.error(err));
@@ -63,7 +64,7 @@ export const Movies = () => {
 
   return (
     <>
-      <div>
+      <ContainerStyled $marginTop>
         <form onSubmit={handleSubmit}>
           <label>
             <input
@@ -80,13 +81,13 @@ export const Movies = () => {
             </button>
           </label>
         </form>
-      </div>
+      </ContainerStyled>
       {isLoading ? (
         <>Loading...</>
       ) : (
-        <>
+        <ContainerStyled>
           <MoviesList movies={movies} path={location} />
-          {showButton && (
+          {/* {showButton && (
             <button
               type="button"
               onClick={() => {
@@ -95,8 +96,8 @@ export const Movies = () => {
             >
               next
             </button>
-          )}
-        </>
+          )} */}
+        </ContainerStyled>
       )}
     </>
   );
