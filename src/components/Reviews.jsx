@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const Reviews = () => {
-  // 634649
   const [reviews, setReviews] = useState([]);
   const { id } = useParams();
   // const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +38,6 @@ export const Reviews = () => {
       })
       .catch(err => console.error('this is error', err));
   }, [id]);
-  //   console.log(reviews);
-  //We don't have any reviewsfor this movies
   return (
     <div>
       {totalResults > 0 ? (
