@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BackdropPhoto, CastStyled } from './Cast.styled';
 
 export const Cast = () => {
   const URL = 'https://image.tmdb.org/t/p/w500';
-
   const { id } = useParams();
   const [cast, setCast] = useState([]);
 
@@ -23,52 +23,27 @@ export const Cast = () => {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setCast(response.cast);
       })
       .catch(err => console.error(err));
   }, [id]);
 
-  //   console.log(cast);
   return (
-    <ul style={{ listStyle: 'none' }}>
+    <CastStyled>
       {cast.slice(0, 20).map(actor => (
         <li key={actor.id}>
           {actor.profile_path ? (
-            <img
-              src={`${URL}${actor.profile_path}`}
-              alt=""
-              style={{
-                width: '160px',
-                height: 'auto',
-                background: 'lightgrey',
-              }}
-            />
+            <img src={`${URL}${actor.profile_path}`} alt="" />
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                width: '160px',
-                height: '240px',
-                background: 'lightgrey',
-              }}
-            >
-              <p
-                style={{
-                  margin: 'auto',
-                  color: 'whitesmoke',
-                  fontWeight: 600,
-                  fontSize: '30px',
-                }}
-              >
-                no photo
-              </p>
-            </div>
+            <BackdropPhoto>
+              <p>no photo</p>
+            </BackdropPhoto>
           )}
           <p>{actor.name}</p>
           <p>charcter: {actor.character}</p>
         </li>
       ))}
-    </ul>
+    </CastStyled>
   );
 };
