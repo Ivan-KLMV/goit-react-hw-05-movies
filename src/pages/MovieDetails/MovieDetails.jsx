@@ -1,5 +1,5 @@
 import { ContainerStyled } from 'components/Container.styled';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import {
   Link,
   useParams,
@@ -83,7 +83,7 @@ const MovieDetails = () => {
               <ul>
                 <li>
                   <Link to="cast" state={{ from: location.state?.from ?? '/' }}>
-                    cast
+                    Cast
                   </Link>
                 </li>
                 <li>
@@ -91,11 +91,13 @@ const MovieDetails = () => {
                     to="reviews"
                     state={{ from: location.state?.from ?? '/' }}
                   >
-                    reviews
+                    Reviews
                   </Link>
                 </li>
               </ul>
-              <Outlet />
+              <Suspense fallback={<div>Loading page...</div>}>
+                <Outlet />
+              </Suspense>
             </InformationStyled>
           </MovieDetailsStyled>
         </>
