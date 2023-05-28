@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BackdropPhoto, CastStyled } from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
   const URL = 'https://image.tmdb.org/t/p/w500';
   const { id } = useParams();
   const [cast, setCast] = useState([]);
@@ -47,3 +47,5 @@ export const Cast = () => {
     </CastStyled>
   );
 };
+
+export default Cast;

@@ -4,7 +4,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useLocation } from 'react-router-dom';
 import { ContainerStyled } from 'components/Container.styled';
 
-export const Home = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page] = useState(1);
@@ -42,20 +42,10 @@ export const Home = () => {
       {isLoading ? (
         <>Loading...</>
       ) : (
-        <>
-          <MoviesList movies={movies} path={location} />
-          {/* {showButton && (
-            <button
-              type="button"
-              onClick={() => {
-                setPage(prev => prev + 1);
-              }}
-            >
-              next
-            </button>
-          )} */}
-        </>
+        <MoviesList movies={movies} path={location} />
       )}
     </ContainerStyled>
   );
 };
+
+export default Home;

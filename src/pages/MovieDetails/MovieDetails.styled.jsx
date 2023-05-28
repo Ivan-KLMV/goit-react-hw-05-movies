@@ -8,6 +8,13 @@ export const MovieDetailsStyled = styled.div`
   & > div {
     display: flex;
     gap: 20px;
+
+    & > img {
+      width: 240px;
+      height: auto;
+      background: lightgray;
+      flex-shrink: 0;
+    }
   }
 `;
 

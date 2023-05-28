@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { LayoutStyled } from './Layout.styled';
 import { ContainerStyled } from 'components/Container.styled';
+import { Suspense } from 'react';
 
 export const Layout = () => {
   return (
@@ -13,9 +14,9 @@ export const Layout = () => {
           </nav>
         </ContainerStyled>
       </LayoutStyled>
-      <main>
+      <Suspense>
         <Outlet />
-      </main>
+      </Suspense>
     </>
   );
 };

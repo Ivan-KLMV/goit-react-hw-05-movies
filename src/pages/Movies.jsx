@@ -3,7 +3,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { ContainerStyled } from 'components/Container.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const [input, setInput] = useState('');
   // const [searchValue, setSearchValue] = useState('');
   const [movies, setMovies] = useState([]);
@@ -63,42 +63,32 @@ export const Movies = () => {
   };
 
   return (
-    <>
-      <ContainerStyled $marginTop>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input
-              type="text"
-              name="input"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search movies"
-              onChange={handleChange}
-              value={input}
-            />
-            <button type="submit">
-              <span>Search_</span>
-            </button>
-          </label>
-        </form>
-      </ContainerStyled>
+    <ContainerStyled $marginTop>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input
+            type="text"
+            name="input"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search movies"
+            onChange={handleChange}
+            value={input}
+          />
+          <button type="submit">
+            <span>Search_</span>
+          </button>
+        </label>
+      </form>
       {isLoading ? (
         <>Loading...</>
       ) : (
         <ContainerStyled>
           <MoviesList movies={movies} path={location} />
-          {/* {showButton && (
-            <button
-              type="button"
-              onClick={() => {
-                setPage(prev => prev + 1);
-              }}
-            >
-              next
-            </button>
-          )} */}
         </ContainerStyled>
       )}
-    </>
+    </ContainerStyled>
   );
 };
+
+export default Movies;
