@@ -8,29 +8,22 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { MovieDetailsStyled, InformationStyled } from './MovieDetails.styled';
+import { moviesApi } from 'services/moviesApi';
 
 const MovieDetails = () => {
   const navigate = useNavigate();
-  const URL = 'https://image.tmdb.org/t/p/w500';
   const [movieInfo, setMovieInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const location = useLocation();
   const backwardPath = location.state?.from ?? '/';
-  // console.log(backwardPath);
+  const URL = moviesApi.imagUrl;
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTI1YzAwN2Q3NzBjMmI2YTk2YTY5NGEyYWIxOWRjZSIsInN1YiI6IjY0NmNkNTE4MmJjZjY3MDE1NTg0Y2I0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1zl0yET6waSnMi-_6LNcanZOg8qB1GH_Q87VGSPFtqc',
-      },
-    };
     setIsLoading(true);
-    fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
-      .then(response => response.json())
+
+    moviesApi
+      .getDetails(id)
       .then(response => {
         // console.log(response);
         setMovieInfo(response);
@@ -70,7 +63,7 @@ const MovieDetails = () => {
                 <h3>overview</h3>
                 <p>{movieInfo.overview}</p>
                 <h3>genres</h3>
-                <ul style={{ display: 'flex', gap: '10px', listStyle: 'none' }}>
+                <ul>
                   {movieInfo.genres &&
                     movieInfo.genres.map(genre => (
                       <li key={genre.id}>{genre.name}</li>

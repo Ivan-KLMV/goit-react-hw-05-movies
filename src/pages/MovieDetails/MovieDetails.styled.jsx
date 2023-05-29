@@ -15,6 +15,13 @@ export const MovieDetailsStyled = styled.div`
       background: lightgray;
       flex-shrink: 0;
     }
+
+    & > div > ul {
+      display: flex;
+      gap: 10px;
+
+      list-style: none;
+    }
   }
 `;
 
